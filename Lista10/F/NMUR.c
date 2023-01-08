@@ -1,95 +1,90 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
 
-void merge(int *vetor, int i, int f, int m)
+#define Item int
+
+#define key(x) (x)
+
+#define less(a, b) (a < b)
+
+#define swap(a, b) \
+  {                \
+    Item t = a;    \
+    a = b;         \
+    b = t;         \
+  }
+
+int compare(const void *a, const void *b)
 {
-    int vetorAux[f - i + 1];
-    int Ai = i, Bi = m + 1, AUXi = 0, p;
-
-    while (Ai <= m && Bi <= f)
-    {
-        if (vetor[Ai] <= vetor[Bi])
-        {
-            vetorAux[AUXi++] = vetor[Ai++];
-        }
-        else
-        {
-            vetorAux[AUXi++] = vetor[Bi++];
-        }
-    }
-
-    while (Ai <= m)
-    {
-        vetorAux[AUXi++] = vetor[Ai++];
-    }
-    while (Bi <= f)
-    {
-        vetorAux[AUXi++] = vetor[Bi++];
-    }
-
-    int v = 0;
-    for (p = i; p <= f; ++p)
-    {
-        vetor[p] = vetorAux[v++];
-    }
-}
-
-void mergeSort(int *vetor, int i, int j)
-{
-    if (i >= j)
-        return;
-
-    int meio = i + (j - i) / 2;
-    mergeSort(vetor, i, meio);
-    mergeSort(vetor, meio + 1, j);
-    merge(vetor, i, j, meio);
-}
-
-int searchNumber(int *vetor, int search, int len)
-{
-    int i;
-    for (i = 0; i < len; i++)
-    {
-        if (vetor[i] == search)
-            return i;
-    }
+  Item x = *(Item *)a;
+  Item y = *(Item *)b;
+  if (x < y)
     return -1;
+  else if (x > y)
+    return 1;
+  return 0;
 }
 
-void removeRep(int *vetor, int f, int i)
+void merge(Item *a, int sizea, Item *b, int sizeb)
 {
-    int vetAux[f - i + 1], p, auxI = 0, h, k;
+  Item *temp = (Item *)malloc((sizea + sizeb) * sizeof(Item));
+  int i = 0, j = 0, k = 0;
+  for (; i < sizea && j < sizeb; k++)
+  {
+    if (key(a[i]) <= key(b[j]))
+      temp[k] = a[i++];
+    else
+      temp[k] = b[j++];
+  }
 
-    for (p = 0; p <= f; p++)
-    {
-        if (p == 0)
-            vetAux[auxI++] = vetor[p];
+  while (i < sizea)
+    temp[k++] = a[i++];
+  while (j < sizeb)
+    temp[k++] = b[j++];
 
-        if (searchNumber(vetAux, vetor[p], auxI) == -1)
-            vetAux[auxI++] = vetor[p];
-    }
+  for (k = 0, i = 0; i < (sizea + sizeb); i++, k++)
+    a[i] = temp[k];
 
-    for (h = 0; h < f - 1; h++)
-    {
-        vetor[h] = vetAux[h];
-    }
+  free(temp);
+}
+
+int remove_duplicados(Item *v, int n)
+{
+  int size = 1;
+  for (int i = 1; i < n; i++)
+    if (v[i] != v[size - 1])
+      v[size++] = v[i];
+  return size;
 }
 
 int main()
 {
-    int i, tam;
-    int *vetor;
+  int n;
+  scanf(" %d", &n);
+  int *v = (int *)malloc(sizeof(int) * (2 * n));
+  for (int i = 0; i < n; i++)
+    scanf(" %d", v + i);
 
-    scanf("%d", &tam);
-    vetor = (int *)malloc(tam * sizeof(int));
+  qsort(v, n, sizeof(Item), compare);
 
-    for (i = 0; i < tam; i++)
-    {
-        scanf("%d", &vetor[i]);
-    }
+  int size = remove_duplicados(v, n);
+  if (size % 2)
+    v[size++] = 1000000000;
 
-    mergeSort(vetor, 0, tam - 1);
-    removeRep(vetor, tam - 1, 0);
+  int tamanho_numero_maluco = 0;
+  for (int i = 0; i < size - 1; i += 2)
+  {
+    unsigned long long sum = (unsigned long long)v[i] + (unsigned long long)v[i + 1];
+    v[size + tamanho_numero_maluco++] = (int)sum;
+  }
 
-    return 0;
+  merge(v, size, v + size, tamanho_numero_maluco);
+  size = remove_duplicados(v, size + tamanho_numero_maluco);
+  for (int i = 0; i < size; i += 4)
+    printf("%d\n", v[i]);
+  printf("Elementos: %d\n", size);
+
+  return 0;
 }
