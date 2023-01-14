@@ -44,6 +44,11 @@ int separa(int *v, int l, int r)
     return i;
 }
 
+void quick_sort(int *v, int l, int r)
+{
+    quick_sortM3(v, l, r);
+    insertion_sort(v, l, r);
+}
 // Função de ordenação rápida
 // void quick_sort(int *v, int l, int r)
 // {
@@ -54,12 +59,6 @@ int separa(int *v, int l, int r)
 //     quick_sort(v, l, j - 1);
 //     quick_sort(v, j + 1, r);
 // }
-
-void quick_sort(int *v, int l, int r)
-{
-    quick_sortM3(v, l, r);
-    insertion_sort(v, l, r);
-}
 
 // Função de ordenação rápida
 void quick_sortM3(int *v, int l, int r)
