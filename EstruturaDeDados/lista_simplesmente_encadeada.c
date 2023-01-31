@@ -139,6 +139,19 @@ void lista_adiciona_posicao(Lista *lista, int valor, int posicao){
     }
 }
 
+int lista_busca(Lista *lista, int valor){
+    No *aux = lista->inicio;
+    int i = 0;
+    while(aux != NULL){
+        if(aux->valor == valor){
+            return i;
+        }
+        aux = aux->proximo;
+        i++;
+    }
+    return -1;
+}
+
 int lista_tamanho(Lista *lista){
     return lista->tam;
 }

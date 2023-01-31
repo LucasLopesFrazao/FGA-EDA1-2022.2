@@ -10,10 +10,10 @@ int main()
     int *pacote = (int *)malloc(pacotes * sizeof(int));
 
     for (int i = 0; i < casas; i++) {
-        scanf("%d%*c", &casa[i]);
+        scanf("%d", &casa[i]);
     }
     for (int i = 0; i < pacotes; i++) {
-        scanf("%d%*c", &pacote[i]);
+        scanf("%d", &pacote[i]);
     }
 
     int unidade = 0;
