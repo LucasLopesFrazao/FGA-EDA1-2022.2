@@ -111,15 +111,6 @@ FGA-EDA-1-2022.2 📚-Repositório Criado para a disciplina de Estrutura de Dado
 <b>Clique [aqui](https://github.com/LucasLopesFrazao/FGA-EDA1-2022.2/tree/main/Lista12) para ver as soluções feitas por mim.</b>
 <br><br>by <b>Lucas Frazão</b>
 
-## Lista 12 - Fila e Pilha vetor
-- B - Botas perdidas 
-- C - Vivo ou Morto 
-- D - Expressões 
-- E - Jogando Cartas Fora 
-
-<b>Clique [aqui](https://github.com/LucasLopesFrazao/FGA-EDA1-2022.2/tree/main/Lista12) para ver as soluções feitas por mim.</b>
-<br><br>by <b>Lucas Frazão</b>
-
 ## Trabalho de EDA1
 - 4pontos - C-z 
 - 6pontos - Gomercindo Detetive 
